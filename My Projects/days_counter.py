@@ -33,28 +33,37 @@ elif dates[0][0] == dates[1][0]:
             dates[0] = dates[1]
             dates[1] = temp
 
+# easier identifier
+year1 = dates[0][0]
+year2 = dates[1][0]
+month1 = dates[0][1]
+month2 = dates[1][1]
+day1 = dates[0][2]
+day2 = dates[1][2]
+
 # count the days
-if dates[0][0] == dates[1][0] and dates[0][1] == dates[1][1]:
-    days = dates[1][2] - dates[0][2]
+if year1 == year2 and month1 == month2:
+    days = day2 - day1
 else:
-    years = dates[1][0] - dates[0][0]
-    days += month_list[dates[0][1] - 1] - dates[0][2]
+    years = year2 - year1
+    days += month_list[month1 - 1] - day1
     if days < 0:
         days = 0
-    for i in range(dates[0][1], dates[1][1] + 12 * years):
+
+    for i in range(month1, month2 + 12 * years):
         days += month_list[i % 12]
-    days = days - month_list[dates[1][1] - 1] + dates[1][2]
+    days = days - month_list[month2 - 1] + day2
 
 # if leap year add a day
-if dates[0][1] <= 2:
-    if isleap(dates[0][1]):
-        if dates[0][2] < 29:
+if month1 <= 2:
+    if isleap(month1):
+        if day1 < 29:
             days += 1
-if dates[1][0] > dates[0][0]:
+if year2 > year1:
     t = 0
-    if dates[1][1] > 2:
+    if month2 > 2:
         t = 1
-    for i in range(dates[0][0] + 1, dates[1][0] + t):
+    for i in range(year1 + 1, year2 + t):
         if isleap(i):
             days += 1
 
